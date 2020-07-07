@@ -1,0 +1,59 @@
+<project basedir=".." default="compile_all" name="studentskills">
+
+  <property name="BUILD.compiler" value="modern"/>
+  <property name="src" value="src"/>
+  <property name="BUILD" value="src/BUILD"/>
+  <property name="classes" value="${BUILD}/classes"/>
+
+  <target depends="compile_all" name="all"/>
+
+  <target depends="studentskills"
+    name="compile_all"/>
+
+  <target name="clean">
+    <delete dir="${BUILD}"/>
+  </target>
+
+  <!-- Prepare target directories -->
+  <target name="prepare">
+    <mkdir dir="${BUILD}"/>
+    <mkdir dir="${classes}"/>
+  </target>
+
+  <target name="jar">
+    <jar basedir="${BUILD}/classes" destfile="${BUILD}/jar/studentskills.jar">
+      <manifest>
+        <attribute name="Main-Class" value="studentskills.driver.Driver"/>
+      </manifest>
+    </jar>
+    <mkdir dir="${BUILD}/jar"/>
+  </target>
+
+  <!-- ** means all subdirectories as well -->
+  <!-- * means all files in the current directory -->
+  <!-- for just java files use *.java -->
+
+  <target depends="prepare" name="studentskills">
+    <javac classpath="${classes}" debug="on"
+      deprecation="off"
+      destdir="${classes}"
+      excludes="**/package.html"
+      includeantruntime="false"
+      includes="studentskills/**"
+      optimize="on"
+      srcdir="${src}"/>
+  </target>
+
+  <target depends="jar" name="run">
+    <java fork="true" jar="${BUILD}/jar/studentskills.jar">
+      <arg value="${input}"/> <!-- input file -->
+      <arg value="${modifications}"/> <!-- modifications file -->
+      <arg value="${tree1_output}"/> <!-- output file -->
+      <arg value="${tree2_output}"/> <!-- output file -->
+      <arg value="${tree3_output}"/> <!-- output file -->
+      <arg value="${error_log}"/> <!-- error file -->
+      <arg value="${debug_log}"/> <!-- debug file -->
+    </java>
+  </target>
+
+</project>

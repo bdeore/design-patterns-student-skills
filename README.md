@@ -27,8 +27,7 @@ The above command compiles your code and generates .class files inside the BUILD
 ## Instructions to run:
 
 ```commandline
-ant -buildfile studentskills/src/build.xml run -Dinput="input.txt" -Dmodify="modifications.txt" 
--Dout1="tree1.txt" -Dout2="tree2.txt" -Dout3="tree3.txt" -Derror="errors.txt" -Ddebug="debug.txt"
+ant -buildfile studentskills/src/build.xml run -Dinput="input.txt" -Dmodify="modifications.txt" -Dout1="tree1_output.txt" -Dout2="tree2_output.txt" -Dout3="tree3_output.txt" -Derror="errors_log.txt" -Ddebug="debug_log.txt"
 ```
 Note: Arguments accept the absolute path of the files.
 
