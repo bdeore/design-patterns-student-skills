@@ -1,5 +1,7 @@
 package studentskills.mytree;
 
+import studentskills.util.Results;
+
 public class BalancedTree {
 
   private final int replicaID;
@@ -64,9 +66,10 @@ public class BalancedTree {
       root.setLeftNode(insert(root.getLeftNode(), record));
     } else if (record.getbNumber() > root.getbNumber()) {
       root.setRightNode(insert(root.getRightNode(), record));
-    } else {
-      System.out.println("duplicate key " + record.getbNumber());
-      // throw new RuntimeException("duplicate Key!");
+    } else if (record.getbNumber() == root.getbNumber()) {
+      record.setLeftNode(root.getLeftNode());
+      record.setRightNode(root.getRightNode());
+      root = record;
     }
     rebalanceTree(root);
     return this.root;
@@ -87,10 +90,12 @@ public class BalancedTree {
     return current;
   }
 
+  public void printNodes(Results results) {}
+
   public void inorder(StudentRecord record) {
     if (record == null) return;
     inorder(record.getLeftNode());
-    System.out.println(
+    System.out.print(
         "BNumber: "
             + record.getbNumber()
             + ", "
@@ -100,8 +105,14 @@ public class BalancedTree {
             + "lastName: "
             + record.getLastName()
             + ", "
+            + "GPA: "
+            + record.getGpa()
+            + ", "
             + "Major: "
-            + record.getMajor());
+            + record.getMajor()
+            + " Skills: ");
+    for (String skill : record.getSkills()) System.out.print(" " + skill);
+    System.out.println();
     inorder(record.getRightNode());
   }
 

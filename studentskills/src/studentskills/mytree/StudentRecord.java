@@ -20,13 +20,19 @@ public class StudentRecord implements SubjectI, ObserverI, Cloneable {
 
   private List<StudentRecord> observers;
 
-  public StudentRecord(int bNumber, String firstName, String lastName, double gpa, String major) {
+  public StudentRecord(
+      int bNumber,
+      String firstName,
+      String lastName,
+      double gpa,
+      String major,
+      HashSet<String> skills) {
     this.bNumber = bNumber;
     this.firstName = firstName;
     this.lastName = lastName;
     this.gpa = gpa;
     this.major = major;
-    this.skills = new HashSet<>();
+    this.skills = skills;
     this.leftNode = null;
     this.rightNode = null;
     this.height = 0;
@@ -94,9 +100,8 @@ public class StudentRecord implements SubjectI, ObserverI, Cloneable {
     else if (this.lastName.equals(origValue)) this.lastName = newValue;
     else if (this.major.equals(origValue)) this.major = newValue;
     else if (skills.contains(origValue)) {
-      for (String skill : skills) {
-        if (skill.equals(origValue)) skill = newValue;
-      }
+      skills.remove(origValue);
+      skills.add(newValue);
     } else System.out.println("modify value doesn't exist");
   }
 
