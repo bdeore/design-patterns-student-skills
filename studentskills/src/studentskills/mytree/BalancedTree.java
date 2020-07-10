@@ -65,7 +65,7 @@ public class BalancedTree {
     } else if (record.getbNumber() > root.getbNumber()) {
       root.setRightNode(insert(root.getRightNode(), record));
     } else {
-      System.out.println("duplicate key");
+      System.out.println("duplicate key " + record.getbNumber());
       // throw new RuntimeException("duplicate Key!");
     }
     rebalanceTree(root);
@@ -76,10 +76,8 @@ public class BalancedTree {
 
     StudentRecord current = this.root;
 
-    System.out.println("\nVisiting elements: ");
-
     while (current != null && current.getbNumber() != bNumber) {
-      System.out.print(current.getbNumber() + " ");
+      // System.out.print(current.getbNumber() + " ");
       if (current.getbNumber() > bNumber) {
         current = current.getLeftNode();
       } else if (current.getbNumber() < bNumber) {
@@ -92,7 +90,18 @@ public class BalancedTree {
   public void inorder(StudentRecord record) {
     if (record == null) return;
     inorder(record.getLeftNode());
-    System.out.print(record.getbNumber() + " ");
+    System.out.println(
+        "BNumber: "
+            + record.getbNumber()
+            + ", "
+            + "firstName: "
+            + record.getFirstName()
+            + ", "
+            + "lastName: "
+            + record.getLastName()
+            + ", "
+            + "Major: "
+            + record.getMajor());
     inorder(record.getRightNode());
   }
 

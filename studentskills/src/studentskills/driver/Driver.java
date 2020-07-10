@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
 import studentskills.mytree.BalancedTree;
-import studentskills.mytree.ReplicaID;
 import studentskills.mytree.StudentRecord;
 import studentskills.mytree.TreeHelper;
 import studentskills.util.FileProcessor;
@@ -29,43 +28,40 @@ public class Driver {
     try {
       FileProcessor fp = new FileProcessor(args[0]);
 
-      String line = fp.poll();
-      while (line != null) {
-        System.out.println(line);
-        line = fp.poll();
-      }
-
       StudentRecord s1 = new StudentRecord(10, "John", "Doe", 3.0, "CS");
-      StudentRecord s2 = new StudentRecord(20, "John", "Doe", 3.0, "CS");
-      StudentRecord s3 = new StudentRecord(30, "John", "Doe", 3.0, "CS");
-      StudentRecord s4 = new StudentRecord(40, "John", "Doe", 3.0, "CS");
-      StudentRecord s5 = new StudentRecord(50, "John", "Doe", 3.0, "CS");
-      StudentRecord s6 = new StudentRecord(25, "John", "Doe", 3.0, "CS");
+      StudentRecord s2 = new StudentRecord(20, "jane", "Doe", 3.0, "CS");
+      StudentRecord s3 = new StudentRecord(30, "test", "Doe", 3.0, "CS");
+      StudentRecord s4 = new StudentRecord(40, "jr", "Doe", 3.0, "CS");
+      StudentRecord s5 = new StudentRecord(50, "Jn", "Doe", 3.0, "CS");
+      StudentRecord s6 = new StudentRecord(25, "ohn", "Doe", 3.0, "CS");
 
-      TreeHelper replicas = new TreeHelper(3);
+      TreeHelper replicaManager = new TreeHelper(3);
 
-      BalancedTree records = replicas.getReplicas().get(1);
+      replicaManager.insert(s1);
+      replicaManager.insert(s2);
+      replicaManager.insert(s3);
+      replicaManager.insert(s4);
+      replicaManager.insert(s5);
+      replicaManager.insert(s6);
 
-      records.setRoot(records.insert(records.getRoot(), s1));
-      records.setRoot(records.insert(records.getRoot(), s2));
-      records.setRoot(records.insert(records.getRoot(), s3));
-      records.setRoot(records.insert(records.getRoot(), s4));
-      records.setRoot(records.insert(records.getRoot(), s5));
-      records.setRoot(records.insert(records.getRoot(), s6));
+      replicaManager.updateNode(2, 10, "CS", "ECON");
 
+      BalancedTree records = replicaManager.getReplicas().get(0);
       records.inorder(records.getRoot());
-      System.out.println(records.find(25).getbNumber());
-      System.out.println(records.getRoot().getbNumber());
+      System.out.println();
 
-      System.out.println(ReplicaID.getID(records));
-
-      BalancedTree records0 = replicas.getReplicas().get(0);
+      BalancedTree records0 = replicaManager.getReplicas().get(1);
       records0.inorder(records0.getRoot());
+      System.out.println();
+
+      BalancedTree records1 = replicaManager.getReplicas().get(2);
+      records1.inorder(records1.getRoot());
 
     } catch (InvalidPathException
         | FileNotFoundException
         | SecurityException // | EmptyInputFileException
-        | ArithmeticException e) {
+        | ArithmeticException
+        | CloneNotSupportedException e) {
       System.out.println(e);
       System.out.println("(Class Driver) Terminating Program");
       System.exit(1);

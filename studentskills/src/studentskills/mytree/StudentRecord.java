@@ -1,9 +1,11 @@
 package studentskills.mytree;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class StudentRecord {
+public class StudentRecord implements SubjectI, ObserverI, Cloneable {
 
   private int bNumber;
   private String firstName;
@@ -12,8 +14,11 @@ public class StudentRecord {
   private String major;
   private Set<String> skills;
   private StudentRecord leftNode;
+
   private StudentRecord rightNode;
   private int height;
+
+  private List<StudentRecord> observers;
 
   public StudentRecord(int bNumber, String firstName, String lastName, double gpa, String major) {
     this.bNumber = bNumber;
@@ -25,6 +30,7 @@ public class StudentRecord {
     this.leftNode = null;
     this.rightNode = null;
     this.height = 0;
+    this.observers = new ArrayList<>();
   }
 
   public int getbNumber() {
@@ -77,5 +83,54 @@ public class StudentRecord {
 
   public void setRightNode(StudentRecord rightNode) {
     this.rightNode = rightNode;
+  }
+
+  public List<StudentRecord> getObservers() {
+    return observers;
+  }
+
+  public void modify(String origValue, String newValue) {
+    if (this.firstName.equals(origValue)) this.firstName = newValue;
+    else if (this.lastName.equals(origValue)) this.lastName = newValue;
+    else if (this.major.equals(origValue)) this.major = newValue;
+    else if (skills.contains(origValue)) {
+      for (String skill : skills) {
+        if (skill.equals(origValue)) skill = newValue;
+      }
+    } else System.out.println("modify value doesn't exist");
+  }
+
+  @Override
+  public void update(String origValue, String newValue) {
+    modify(origValue, newValue);
+  }
+
+  @Override
+  public void registerObserver(ObserverI node) {
+    observers.add((StudentRecord) node);
+  }
+
+  @Override
+  public void removeObserver(ObserverI node) {
+    if (observers.contains(node)) {
+      observers.remove(node);
+    } else {
+      System.out.println("Observer doesn't exist");
+    }
+  }
+
+  @Override
+  public void notifyObservers(String origValue, String newValue) {
+    for (StudentRecord observer : observers) {
+      observer.update(origValue, newValue);
+    }
+  }
+
+  @Override
+  protected StudentRecord clone() throws CloneNotSupportedException {
+    StudentRecord copy = (StudentRecord) super.clone();
+    copy.skills = new HashSet<>();
+    copy.observers = new ArrayList<>();
+    return copy;
   }
 }
