@@ -15,15 +15,16 @@ public class StudentRecord {
   private StudentRecord rightNode;
   private int height;
 
-  public StudentRecord(int bNumber) {
+  public StudentRecord(int bNumber, String firstName, String lastName, double gpa, String major) {
     this.bNumber = bNumber;
-    this.firstName = "test";
-    this.lastName = "code";
-    this.gpa = 0;
-    this.major = "xyz";
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.gpa = gpa;
+    this.major = major;
     this.skills = new HashSet<>();
     this.leftNode = null;
     this.rightNode = null;
+    this.height = 0;
   }
 
   public int getbNumber() {
