@@ -93,8 +93,14 @@ public class BalancedTree {
   public void printNodes(StudentRecord record, Results results) {
     if (record == null) return;
     printNodes(record.getLeftNode(), results);
-    String output = "bNumber: " + record.getbNumber() + " Skills: ";
-    for (String skill : record.getSkills()) output += (skill + ", ");
+    boolean first = true;
+    String output = "bNumber: " + record.getbNumber() + " Skills: [ ";
+    for (String skill : record.getSkills()) {
+      if (!first) output += ", ";
+      output += skill;
+      first = false;
+    }
+    output += " ]";
     results.store(output);
     printNodes(record.getRightNode(), results);
   }

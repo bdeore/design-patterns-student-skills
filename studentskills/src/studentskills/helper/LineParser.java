@@ -3,6 +3,7 @@ package studentskills.helper;
 import java.io.IOException;
 import java.util.HashSet;
 import studentskills._exceptions.EmptyInputFileException;
+import studentskills._exceptions.InvalidMetricException;
 import studentskills._exceptions.InvalidWordException;
 import studentskills.mytree.StudentRecord;
 import studentskills.mytree.TreeHelper;
@@ -19,9 +20,9 @@ public class LineParser {
   }
 
   /**
-   * processFile method uses file processor object to read in the line. validates format of the line
-   * using validateLineFormat() method. switch control statement is used to pass on the control to
-   * separate handlers for each operation rather than creating one giant monolithic function.
+   * processFile method uses file processor object to read in the line. if-else control statement is
+   * used to pass on the control to separate handlers for each operation rather than creating one
+   * giant monolithic function.
    */
   public void processFile() {
     int count = 0;
@@ -31,7 +32,7 @@ public class LineParser {
       while (line != null) {
         String[] tokens = line.split(delimiters);
         count++;
-        // validateLineFormat(tokens, count);
+
         if (tokens[0].equals("")) {
           ErrorLogger.getInstance().store("Empty Input Line Found -- Ignored");
           line = fp.poll();
@@ -44,6 +45,10 @@ public class LineParser {
           } else {
             if (tokens.length == 3) {
               ErrorLogger.getInstance().store("Modification Error -- New Value Can't be Empty");
+            } else if (tokenZero > 9999
+                || tokenZero <= 999
+                || tokenZero > replicaManager.getAllReplicas().size()) {
+              throw new InvalidMetricException("Invalid Value in Input File ( " + tokenZero + " )");
             } else {
               throw new InvalidWordException(
                   "[ Line Number "
@@ -64,7 +69,8 @@ public class LineParser {
         | NumberFormatException
         | NullPointerException
         | EmptyInputFileException
-        | CloneNotSupportedException e) {
+        | CloneNotSupportedException
+        | InvalidMetricException e) {
       System.out.println(e);
       System.out.println("(processFile method) Terminating Program");
       System.exit(1);
@@ -91,7 +97,7 @@ public class LineParser {
   }
 
   private void processModifyRequest(String[] tokens)
-      throws CloneNotSupportedException, NumberFormatException {
+      throws NumberFormatException {
     int replicaID = Integer.parseInt(tokens[0]);
     int bNumber = Integer.parseInt(tokens[1]);
     String origValue = tokens[2];

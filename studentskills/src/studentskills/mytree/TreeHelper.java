@@ -19,9 +19,6 @@ public class TreeHelper {
     }
   }
 
-  // todo
-  // update while doing an insert
-
   public void insert(StudentRecord record) throws CloneNotSupportedException {
     ArrayList<StudentRecord> objectReferences = new ArrayList<>();
     StudentRecord tempRecord = record;

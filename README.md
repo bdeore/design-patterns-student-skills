@@ -1,6 +1,5 @@
 # CSX42: Assignment 3
 **Name:** Bhagwan Sanjay Deore
-
 -----------------------------------------------------------------------
 
 Following are the commands, and the instructions to run ANT on your project.
@@ -33,10 +32,22 @@ Note: Arguments accept the absolute path of the files.
 
 
 ## Description:
-I decided not to name tree replicas as it imposes arbitrary limits.
+Using 1 Slack Day
+
+Data Structure type: AVL Tree
+Justification: AVL is a balanced binary tree. which means following time complexities are guaranteed:
+insertion, access, search, deletion: O(log n)
+whereas, simple binary search tree time complexity can be O(n) in cases where tree is skewed on one side.
+for storing references I'm using ArrayList.
+
+note: TreeHelper class creates and manages AVL tree replicas. recursive methods defined in BalancedTree class are used for all the operations.    
+  
 Exception classes and utility classes used in this assignment are taken from previous assignment.
 
-citations: 
+References:
+BST: CLRS page 286
+AVL tree: https://www.baeldung.com/java-avl-trees 
+
 ## Academic Honesty statement:
 
 "I have done this assignment completely on my own. I have not copied
