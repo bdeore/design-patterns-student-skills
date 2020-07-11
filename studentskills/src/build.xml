@@ -47,12 +47,12 @@
   <target depends="jar" name="run">
     <java fork="true" jar="${BUILD}/jar/studentskills.jar">
       <arg value="${input}"/> <!-- input file -->
-      <arg value="${modifications}"/> <!-- modifications file -->
-      <arg value="${tree1_output}"/> <!-- output file -->
-      <arg value="${tree2_output}"/> <!-- output file -->
-      <arg value="${tree3_output}"/> <!-- output file -->
-      <arg value="${error_log}"/> <!-- error file -->
-      <arg value="${debug_log}"/> <!-- debug file -->
+      <arg value="${modify}"/> <!-- modifications file -->
+      <arg value="${out1}"/> <!-- output file -->
+      <arg value="${out2}"/> <!-- output file -->
+      <arg value="${out3}"/> <!-- output file -->
+      <arg value="${error}"/> <!-- error file -->
+      <arg value="${debug}"/> <!-- debug file -->
     </java>
   </target>
 

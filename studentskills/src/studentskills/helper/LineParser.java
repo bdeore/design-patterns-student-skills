@@ -32,24 +32,33 @@ public class LineParser {
         String[] tokens = line.split(delimiters);
         count++;
         // validateLineFormat(tokens, count);
-        int tokenZero = Integer.parseInt(tokens[0]);
-        if (tokenZero > 999 && tokenZero <= 9999 && tokens.length > 4) {
-          processNewInsert(tokens);
-        } else if (tokenZero < replicaManager.getAllReplicas().size()) {
-          processModifyRequest(tokens);
+        if (tokens[0].equals("")) {
+          ErrorLogger.getInstance().store("Empty Input Line Found -- Ignored");
+          line = fp.poll();
         } else {
-          throw new InvalidWordException(
-              "[ Line Number "
-                  + count
-                  + " ] "
-                  + ((tokens[0].length() > 0)
-                      ? "(" + tokens[0] + ")"
-                      : "(Empty Line / Invalid First Token)")
-                  + " Please Ensure Input File contains Valid Lines");
+          int tokenZero = Integer.parseInt(tokens[0]);
+          if (tokenZero > 999 && tokenZero <= 9999 && tokens.length >= 3) {
+            processNewInsert(tokens);
+          } else if (tokenZero < replicaManager.getAllReplicas().size() && tokens.length == 4) {
+            processModifyRequest(tokens);
+          } else {
+            if (tokens.length == 3) {
+              ErrorLogger.getInstance().store("Modification Error -- New Value Can't be Empty");
+            } else {
+              throw new InvalidWordException(
+                  "[ Line Number "
+                      + count
+                      + " ] "
+                      + ((tokens[0].length() > 0)
+                          ? "(" + tokens[0] + ")"
+                          : "(Empty Line / Invalid First Token)")
+                      + " Please Ensure Input File contains Valid Lines");
+            }
+          }
+          line = fp.poll();
         }
-        line = fp.poll();
+        if (count == 0) throw new EmptyInputFileException();
       }
-      if (count == 0) throw new EmptyInputFileException();
     } catch (IOException
         | InvalidWordException
         | NumberFormatException
@@ -62,7 +71,8 @@ public class LineParser {
     }
   }
 
-  private void processNewInsert(String[] tokens) throws CloneNotSupportedException {
+  private void processNewInsert(String[] tokens)
+      throws CloneNotSupportedException, NumberFormatException {
     int bNumber = Integer.parseInt(tokens[0]);
     String firstName = tokens[1];
     String lastName = tokens[2];
@@ -80,14 +90,8 @@ public class LineParser {
     replicaManager.insert(record);
   }
 
-  private void processModifyRequest(String[] tokens) throws CloneNotSupportedException {
-    //
-    //    System.out.println();
-    //
-    //    for (String token : tokens) {
-    //      System.out.println(token);
-    //    }
-
+  private void processModifyRequest(String[] tokens)
+      throws CloneNotSupportedException, NumberFormatException {
     int replicaID = Integer.parseInt(tokens[0]);
     int bNumber = Integer.parseInt(tokens[1]);
     String origValue = tokens[2];

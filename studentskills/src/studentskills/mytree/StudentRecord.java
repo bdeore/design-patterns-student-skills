@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import studentskills.helper.ErrorLogger;
 
 public class StudentRecord implements SubjectI, ObserverI, Cloneable {
 
@@ -102,7 +103,10 @@ public class StudentRecord implements SubjectI, ObserverI, Cloneable {
     else if (skills.contains(origValue)) {
       skills.remove(origValue);
       skills.add(newValue);
-    } else System.out.println("modify value doesn't exist");
+    } else {
+      ErrorLogger.getInstance()
+          .store("Modification Error -- [" + origValue + "] value does not exist in tree");
+    }
   }
 
   @Override

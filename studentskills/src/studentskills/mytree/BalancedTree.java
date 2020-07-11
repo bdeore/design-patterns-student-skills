@@ -90,7 +90,14 @@ public class BalancedTree {
     return current;
   }
 
-  public void printNodes(Results results) {}
+  public void printNodes(StudentRecord record, Results results) {
+    if (record == null) return;
+    printNodes(record.getLeftNode(), results);
+    String output = "bNumber: " + record.getbNumber() + " Skills: ";
+    for (String skill : record.getSkills()) output += (skill + ", ");
+    results.store(output);
+    printNodes(record.getRightNode(), results);
+  }
 
   public void inorder(StudentRecord record) {
     if (record == null) return;

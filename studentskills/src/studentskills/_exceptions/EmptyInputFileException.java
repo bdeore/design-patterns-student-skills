@@ -8,6 +8,6 @@ public class EmptyInputFileException extends Exception {
   }
 
   public EmptyInputFileException(String message) {
-    System.out.println(message + "EmptyInputFileException: Input File Is Empty");
+    System.out.println("EmptyInputFileException: " + message + " File Is Empty");
   }
 }

@@ -61,13 +61,10 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
   public void write(String output_filename)
       throws ArithmeticException, InvalidPathException, IOException, FileNotFoundException,
           EmptyInputFileException {
-    if (resultBuffer.size() == 0) {
-      throw new EmptyInputFileException();
-    }
 
     FileWriter output_file = null;
     try {
-      output_file = new FileWriter("output.txt");
+      output_file = new FileWriter(output_filename);
       for (String line : resultBuffer) {
         output_file.write(line + "\n");
       }
