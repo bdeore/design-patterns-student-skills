@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import studentskills.helper.ErrorLogger;
 
+/** Student Record class stores the record information and serves as node in the tree */
 public class StudentRecord implements SubjectI, ObserverI, Cloneable {
 
   private int bNumber;
@@ -40,10 +41,20 @@ public class StudentRecord implements SubjectI, ObserverI, Cloneable {
     this.observers = new ArrayList<>();
   }
 
+  /**
+   * getter for bNumber
+   *
+   * @return int bNumber
+   */
   public int getbNumber() {
     return bNumber;
   }
 
+  /**
+   * setter for bNumber
+   *
+   * @param bNumber key value
+   */
   public void setbNumber(int bNumber) {
     this.bNumber = bNumber;
   }
@@ -96,6 +107,12 @@ public class StudentRecord implements SubjectI, ObserverI, Cloneable {
     return observers;
   }
 
+  /**
+   * method to do modifications
+   *
+   * @param origValue original value
+   * @param newValue new value
+   */
   public void modify(String origValue, String newValue) {
     if (this.firstName.equals(origValue)) this.firstName = newValue;
     else if (this.lastName.equals(origValue)) this.lastName = newValue;
@@ -114,11 +131,21 @@ public class StudentRecord implements SubjectI, ObserverI, Cloneable {
     modify(origValue, newValue);
   }
 
+  /**
+   * method to register observers
+   *
+   * @param node StudentRecord object
+   */
   @Override
   public void registerObserver(ObserverI node) {
     observers.add((StudentRecord) node);
   }
 
+  /**
+   * method to remove observers
+   *
+   * @param node StudentRecord object
+   */
   @Override
   public void removeObserver(ObserverI node) {
     if (observers.contains(node)) {
@@ -128,6 +155,12 @@ public class StudentRecord implements SubjectI, ObserverI, Cloneable {
     }
   }
 
+  /**
+   * method to notify all observers
+   *
+   * @param origValue original value
+   * @param newValue new value
+   */
   @Override
   public void notifyObservers(String origValue, String newValue) {
     for (StudentRecord observer : observers) {
@@ -135,11 +168,51 @@ public class StudentRecord implements SubjectI, ObserverI, Cloneable {
     }
   }
 
+  /**
+   * method to create clones with deep copy
+   *
+   * @return StudentRecord Object
+   * @throws CloneNotSupportedException exception
+   */
   @Override
   protected StudentRecord clone() throws CloneNotSupportedException {
     StudentRecord copy = (StudentRecord) super.clone();
     copy.skills = new HashSet<>();
     copy.observers = new ArrayList<>();
     return copy;
+  }
+
+  /**
+   * toString method
+   *
+   * @return String
+   */
+  @Override
+  public String toString() {
+    return "StudentRecord{"
+        + "bNumber="
+        + bNumber
+        + ", firstName='"
+        + firstName
+        + '\''
+        + ", lastName='"
+        + lastName
+        + '\''
+        + ", gpa="
+        + gpa
+        + ", major='"
+        + major
+        + '\''
+        + ", skills="
+        + skills
+        + ", leftNode="
+        + leftNode
+        + ", rightNode="
+        + rightNode
+        + ", height="
+        + height
+        + ", observers="
+        + observers
+        + '}';
   }
 }

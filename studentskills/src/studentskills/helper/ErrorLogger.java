@@ -2,6 +2,7 @@ package studentskills.helper;
 
 import studentskills.util.Results;
 
+/** Singleton class for logging error information. maintains a buffer for storing error messages */
 public class ErrorLogger {
 
   private static Results uniqueInstance;

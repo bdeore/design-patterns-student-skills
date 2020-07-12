@@ -9,6 +9,7 @@ import studentskills.mytree.StudentRecord;
 import studentskills.mytree.TreeHelper;
 import studentskills.util.FileProcessor;
 
+/** LineParser class to parse input lines */
 public class LineParser {
 
   private final FileProcessor fp;
@@ -77,6 +78,13 @@ public class LineParser {
     }
   }
 
+  /**
+   * method to process insert requests
+   *
+   * @param tokens tokens in the current line
+   * @throws CloneNotSupportedException exception when cloning records is not possible
+   * @throws NumberFormatException exception
+   */
   private void processNewInsert(String[] tokens)
       throws CloneNotSupportedException, NumberFormatException {
     int bNumber = Integer.parseInt(tokens[0]);
@@ -96,13 +104,23 @@ public class LineParser {
     replicaManager.insert(record);
   }
 
-  private void processModifyRequest(String[] tokens)
-      throws NumberFormatException {
+  /**
+   * method to process modify request from file
+   *
+   * @param tokens tokens in the current line
+   * @throws NumberFormatException exception
+   */
+  private void processModifyRequest(String[] tokens) throws NumberFormatException {
     int replicaID = Integer.parseInt(tokens[0]);
     int bNumber = Integer.parseInt(tokens[1]);
     String origValue = tokens[2];
     String newValue = tokens[3];
 
     replicaManager.updateNode(replicaID, bNumber, origValue, newValue);
+  }
+
+  @Override
+  public String toString() {
+    return "LineParser{" + "fp=" + fp + ", replicaManager=" + replicaManager + '}';
   }
 }

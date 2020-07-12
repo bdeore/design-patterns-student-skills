@@ -1,5 +1,6 @@
 package studentskills.mytree;
 
+/** Interface for subjects */
 public interface SubjectI {
 
   void registerObserver(ObserverI node);
