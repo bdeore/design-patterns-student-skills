@@ -1,5 +1,4 @@
 ## Student Skills using Observer Pattern
------------------------------------------------------------------------
 
 This project demonstrates the use of observer pattern with system for storing student records. student records are stored in AVL tree and replicas are made consistent upon changes to any one replica using observer pattern.    
 
