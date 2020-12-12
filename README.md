@@ -1,9 +1,9 @@
-# CSX42: Assignment 3
-**Name:** Bhagwan Sanjay Deore
+## Student Skills using Observer Pattern
 -----------------------------------------------------------------------
 
-Following are the commands, and the instructions to run ANT on your project.
+This project demonstrates the use of observer pattern with system for storing student records. student records are stored in AVL tree and replicas are made consistent upon changes to any one replica using observer pattern.    
 
+Following are the commands & instructions to run the project using ANT.
 
 Note: build.xml is present in [studentskills/src](./studentskills/src/) folder.
 
@@ -33,8 +33,6 @@ Note: Arguments accept the absolute path of the files.
 
 ## Description:
 
-**Using 1 Slack Day**
-
 Data Structure type: AVL Tree.
 
 Justification: AVL is a balanced binary tree. which means following time complexities are guaranteed:
@@ -45,20 +43,6 @@ whereas, simple binary search tree time complexity can be O(n) in cases where tr
 for storing references I'm using ArrayList.
 
 Note: TreeHelper class creates and manages AVL tree replicas. recursive methods defined in BalancedTree class are used for all the operations.    
-  
-Exception classes and utility classes used in this assignment are taken from previous assignment.
-
-References:
-BST: CLRS page 286
-AVL tree: https://www.baeldung.com/java-avl-trees 
-
-## Academic Honesty statement:
-
-"I have done this assignment completely on my own. I have not copied
-it, nor have I given my solution to anyone else. I understand that if
-I am involved in plagiarism or cheating an official form will be
-submitted to the Academic Honesty Committee of the Watson School to
-determine the action that needs to be taken. "
 
 Date:  July 6, 2020
 
